@@ -3,7 +3,7 @@
 <head>
     <title>Forgot Password</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="{{ asset('public/style.css') }}">
 </head>
 <body>
 <div class="card">
@@ -13,7 +13,7 @@
     <div class="card-body">   
         <form action="#" method="post">
             <div class="imgcontainer">
-                <img src="avatar.png" alt="Avatar" class="avatar">
+                <img src="{{ url('public/avatar.png') }}" alt="Avatar" class="avatar">
             </div>
 
             <div class="container">
@@ -22,7 +22,7 @@
                 <button type="submit">Forgot Now</button>
                 <div class="row">
                     <div class="col-12">
-                        <span class="password">If you are not <a href="{{ url('register') }}">Register</a></span>
+                        <span class="password">Back to <a href="{{ route('login') }}">Login</a></span>
                     </div>
                 </div>
             </div> 
