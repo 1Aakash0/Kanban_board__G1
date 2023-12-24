@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\project;
+use App\Models\task;
 
 class AuthController extends Controller
 {
@@ -29,12 +31,37 @@ class AuthController extends Controller
         return view('Auth.forgot-password');    
     }
 
-    public function dashboard(){
-        return view('dashboard');    
+     public function dashboard(){
+        $role = Auth::user()->role;
+        $id = Auth::user()->id;
+        if($role == 'D') {
+            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
+            $project = project::whereIn('id',$task)->get();
+        } elseif($role == 'P') {
+            $project = project::all();
+        } elseif($role == "A"){
+            $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
+
+        return view('dashboard',compact('project'));    
     }
 
     public function profile(){
-        return view('profile');    
+        $role = Auth::user()->role;
+        $id = Auth::user()->id;
+        if($role == 'D') {
+            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
+            $project = project::whereIn('id',$task)->get();
+        } elseif($role == 'P') {
+            $project = project::all();
+        } elseif($role == "A"){
+            $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
+        return view('profile',compact('project'));    
     }
 
     /*

@@ -11,7 +11,7 @@
         <h2 class="card-title">Login</h2>
     </div>
     <div class="card-body">   
-        <form action="{{ route('login') }}" method="post">
+        <form action="{{ route('login_submit') }}" method="post">
             @csrf
             <div class="imgcontainer">
                 <img src="{{ url('public/avatar.png') }}" alt="Avatar" class="avatar">
