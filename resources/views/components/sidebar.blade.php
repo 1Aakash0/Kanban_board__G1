@@ -26,8 +26,6 @@
 							</div>
 						</a>
 					</div>
-				@endif
-				@if(Auth::user()->role == "A" || Auth::user()->role == "C" )
 					<div class="dropdown">
 						<a href="{{route('req_list')}}">
 							<div class="dropdown-board {{ Request::path()  == 'req_list' ? 'board-active' : '' }}">
@@ -35,7 +33,6 @@
 							</div>
 						</a>
 					</div>
-				@endif
 				<div class="dropdown">
 					<a href="{{route('log_list')}}">
 						<div class="dropdown-board {{ Request::path()  == 'log_list' ? 'board-active' : '' }}">
@@ -50,6 +47,8 @@
 						</div></a>
 					@endforeach
 				</div>
+				@endif
+
 			</div>
 		</div>
 	</div>

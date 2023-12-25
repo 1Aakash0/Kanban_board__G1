@@ -34,16 +34,7 @@ class AuthController extends Controller
      public function dashboard(){
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == 'D') {
-            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
-            $project = project::whereIn('id',$task)->get();
-        } elseif($role == 'P') {
             $project = project::all();
-        } elseif($role == "A"){
-            $project = project::all();
-        } elseif($role == "C"){
-            $project = project::where('u_id',Auth::user()->id)->get();
-        }
 
         return view('dashboard',compact('project'));    
     }
@@ -51,16 +42,8 @@ class AuthController extends Controller
     public function profile(){
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == 'D') {
-            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
-            $project = project::whereIn('id',$task)->get();
-        } elseif($role == 'P') {
             $project = project::all();
-        } elseif($role == "A"){
-            $project = project::all();
-        } elseif($role == "C"){
-            $project = project::where('u_id',Auth::user()->id)->get();
-        }
+
         return view('profile',compact('project'));    
     }
 

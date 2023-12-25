@@ -24,17 +24,7 @@ class TaskController extends Controller
 
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == 'D') {
-            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
-            $project = project::whereIn('id',$task)->get();
-        } elseif($role == 'P') {
-            $project = project::all();
-        } elseif($role == "A"){
-            $project = project::all();
-        } elseif($role == "C"){
-            $project = project::where('u_id',Auth::user()->id)->get();
-        }
-
+        $project = project::all();
         return view('task',compact(['project','developer']));
     }
 
@@ -90,16 +80,7 @@ class TaskController extends Controller
     {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == 'D') {
-            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
-            $project = project::whereIn('id',$task)->get();
-        } elseif($role == 'P') {
-            $project = project::all();
-        } elseif($role == "A"){
-            $project = project::all();
-        } elseif($role == "C"){
-            $project = project::where('u_id',Auth::user()->id)->get();
-        }
+        $project = project::all();
         
         $task = task::where('project_id',$project_id)->where('is_delete','0')->get();
         $comment = comment::all();
@@ -118,17 +99,8 @@ class TaskController extends Controller
         $task = task::where('id',$task_id)->first();
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == 'D') {
-            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
-            $project = project::whereIn('id',$task)->get();
-        } elseif($role == 'P') {
             $project = project::all();
-        } elseif($role == "A"){
-            $project = project::all();
-        } elseif($role == "C"){
-            $project = project::where('u_id',Auth::user()->id)->get();
-        }
-
+        
         return view('task',compact(['project','developer','task']));
     }
 
@@ -236,16 +208,7 @@ class TaskController extends Controller
         $log = logs::all();
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == 'D') {
-            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
-            $project = project::whereIn('id',$task)->get();
-        } elseif($role == 'P') {
             $project = project::all();
-        } elseif($role == "A"){
-            $project = project::all();
-        } elseif($role == "C"){
-            $project = project::where('u_id',Auth::user()->id)->get();
-        }
 
         return view('log',compact(['project','log']));
     }
@@ -253,22 +216,9 @@ class TaskController extends Controller
     public function req_list() {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == "A") {
             $model = task_req::all();
-        } else if($role == "C") {
-            $model = task_req::where('cus_id',$id)->get();
-        }
-        if($role == 'D') {
-            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
-            $project = project::whereIn('id',$task)->get();
-        } elseif($role == 'P') {
             $project = project::all();
-        } elseif($role == "A"){
-            $project = project::all();
-        } elseif($role == "C"){
-            $project = project::where('u_id',Auth::user()->id)->get();
-        }
-
+        
         return view('req_list',compact(['project','model']));
     }
 
