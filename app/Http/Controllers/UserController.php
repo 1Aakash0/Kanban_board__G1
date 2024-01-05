@@ -13,7 +13,11 @@ class UserController extends Controller
     public function index() {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+        if($role == 'A') {
             $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         $user = User::where('is_delete','0')->get();
         return view('user_list',compact(['user','project']));
     }
@@ -23,8 +27,11 @@ class UserController extends Controller
 
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+        if($role == 'A') {
             $project = project::all();
-        
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         return view('user',compact('project'));
     }
 
@@ -57,7 +64,11 @@ class UserController extends Controller
     public function edit($user_id) {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+        if($role == 'A') {
             $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         $user = User::where('id',$user_id)->first();
         return view('user',compact('user','project'));
 
@@ -80,7 +91,7 @@ class UserController extends Controller
 
     public function destroy(Request $request) {
         
-        if(User::where('id',$request->id)->update('is_delete','1')){
+        if(User::where('id',$request->id)->update(['is_delete'=>'1'])){
             return response()->json(['success' => true, 'message' => 'User Deleted Successfully']);
         } else {
             return response()->json(['success' => false, 'message' => 'Something went wrong']);

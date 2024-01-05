@@ -13,6 +13,5 @@
 		</div>
 	</div>
 </div>
-x`
 
 @include('components/footer')

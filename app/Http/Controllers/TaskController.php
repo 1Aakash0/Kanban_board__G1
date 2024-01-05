@@ -24,7 +24,11 @@ class TaskController extends Controller
 
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        $project = project::all();
+        if($role == 'A') {
+            $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         return view('task',compact(['project','developer']));
     }
 
@@ -80,7 +84,11 @@ class TaskController extends Controller
     {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        $project = project::all();
+        if($role == 'A') {
+            $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         
         $task = task::where('project_id',$project_id)->where('is_delete','0')->get();
         $comment = comment::all();
@@ -99,7 +107,11 @@ class TaskController extends Controller
         $task = task::where('id',$task_id)->first();
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+        if($role == 'A') {
             $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         
         return view('task',compact(['project','developer','task']));
     }
@@ -205,10 +217,16 @@ class TaskController extends Controller
      */
     public function log_list()
     {
-        $log = logs::all();
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+        if($role == 'A') {
             $project = project::all();
+            $log = logs::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+            $project_id = project::where('u_id',Auth::user()->id)->pluck('id')->toArray();
+            $log = logs::whereIn('project_id',$project_id)->get();
+        }
 
         return view('log',compact(['project','log']));
     }
@@ -216,8 +234,13 @@ class TaskController extends Controller
     public function req_list() {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
+        if($role == 'A') {
             $model = task_req::all();
             $project = project::all();
+        } elseif($role == "C"){
+            $model = task_req::where('cus_id',$id)->get();
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         
         return view('req_list',compact(['project','model']));
     }

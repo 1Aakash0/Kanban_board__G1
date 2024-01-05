@@ -26,7 +26,9 @@
 							</div>
 						</a>
 					</div>
-					<div class="dropdown">
+				@endif
+				@if(Auth::user()->role == 'A' || Auth::user()->role == 'C')
+				<div class="dropdown">
 						<a href="{{route('req_list')}}">
 							<div class="dropdown-board {{ Request::path()  == 'req_list' ? 'board-active' : '' }}">
 								Task Request
@@ -41,12 +43,12 @@
 					</a>
 				</div>
 				<h3 class="m-3">ALL PROJECT</h3>
-				<div class="dropdown-boards">
-					@foreach($project as $p)
-						<a href="{{ route('board',$p->id) }}"><div class="dropdown-board {{ Request::is('board/' . $p->id) ? 'board-active' : '' }}"> {{ $p->name }}
-						</div></a>
-					@endforeach
-				</div>
+					<div class="dropdown-boards">
+						@foreach($project as $p)
+							<a href="{{ route('board',$p->id) }}"><div class="dropdown-board {{ Request::is('board/' . $p->id) ? 'board-active' : '' }}"> {{ $p->name }}
+							</div></a>
+						@endforeach
+					</div>
 				@endif
 
 			</div>

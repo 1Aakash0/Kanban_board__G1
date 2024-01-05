@@ -19,7 +19,11 @@ class ProjectController extends Controller
     {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        $project = project::all();
+        if($role == 'A') {
+            $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         
         return view('project_list',compact('project'));
     }
@@ -34,7 +38,11 @@ class ProjectController extends Controller
         $role = Auth::user()->role;
         $id = Auth::user()->id;
 
-        $project = project::all();
+        if($role == 'A') {
+            $project = project::all();
+        } elseif($role == "C"){
+            $project = project::where('u_id',Auth::user()->id)->get();
+        }
         $customer = User::where('role','C')->where('is_delete','0')->get();
         $project_manager = User::where('role','P')->where('is_delete','0')->get();
         return view('project',compact(['customer','project_manager','project']));
