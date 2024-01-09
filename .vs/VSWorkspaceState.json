@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\resources",
+    "\\resources\\views",
+    "\\routes"
   ],
-  "SelectedNode": "\\C:\\Users\\lavan\\Desktop\\G1-Pull",
+  "SelectedNode": "\\resources\\dashboard.blade.php",
   "PreviewInSolutionExplorer": false
 }
