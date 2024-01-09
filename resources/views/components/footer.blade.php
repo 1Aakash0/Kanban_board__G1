@@ -2,7 +2,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<script type="text/javascript">
-
 		$(".comment").on('click',function(){
 			$(this).next().toggleClass('d-none');
 		})
@@ -14,7 +13,6 @@
 		$(".move-req").on('change',function() {
 			var task_id = $(this).parents(".task").attr('id');
 			var status = $(this).val();
-
 			$.ajax({
       			type : "post",
                 url  : "{{route('send_req')}}",
@@ -46,9 +44,6 @@
 		$(".save").on('click',function() {
 			var desc = $(this).prev().val();
 			var ids = $(this).data('id');
-
-			console.log(desc);
-
 			if(desc == null || desc == ""){
 				alert("Please Enter the comment");
 			} else {
@@ -78,10 +73,7 @@
 	                	}
 	                }
 	            });
-
 			}
-
-
 		})
 
 	    function allowDrop(ev) {
@@ -342,9 +334,7 @@
 			  	} 
 			});
 		})
-
 	</script>
-
 	@if(Session::has('success'))
 		<script type="text/javascript">
 			Swal.fire({
@@ -360,9 +350,6 @@
 	    	})
 		</script>
 	@endif
-
-
-
 </div>
 </div>
 </body>

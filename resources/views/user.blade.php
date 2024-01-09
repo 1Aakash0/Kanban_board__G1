@@ -51,7 +51,8 @@
 						</div> 
 						<div class="row m-4">
 							<button class="submit-btn heading-M col-1">Submit</button>
-							<button class="cancel-btn heading-M col-1">Cancel</button>
+							<a href="{{ url('user_list') }}" class="cancel-btn heading-M col-1"><button type="button">Cancel</button></a>
+
 						</div>
 						
 					</form>
@@ -116,7 +117,7 @@
 						</div> 
 						<div class="row m-4">
 							<button class="submit-btn heading-M col-1">Submit</button>
-							<button class="cancel-btn heading-M col-1">Cancel</button>
+							<a href="{{ url('user_list') }}"  class="cancel-btn heading-M col-1"><button type="button">Cancel</button></a>
 						</div>
 						
 					</form>

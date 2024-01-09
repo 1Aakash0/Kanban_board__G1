@@ -17,9 +17,6 @@
                             <div style="text-align: right;">
                                 <i class="fa fa-comment p-2 comment" style="color: lightgray; font-size: 20px;"></i>
                                 <div class="comment-form d-none">
-                                    <!-- <textarea cols="3" maxlength="300" rows="3" class="form-control"></textarea>
-                                    <button class="text-primary save" data-id="{{$t->id}}">Save</button>
-                                    <button class="text-danger cancel">Cancel</button> -->
                                     <div class="comment-section">
                                         <h6>Comments</h6>
                                         @foreach($comment as $c)
@@ -61,9 +58,6 @@
                             <div style="text-align: right;">
                                 <i class="fa fa-comment p-2 comment" style="color: lightgray; font-size: 20px;"></i>
                                 <div class="comment-form d-none">
-                                    <!-- <textarea cols="3" maxlength="300" rows="3" class="form-control"></textarea>
-                                    <button class="text-primary save" data-id="{{$t->id}}">Save</button>
-                                    <button class="text-danger cancel">Cancel</button> -->
                                     <div class="comment-section">
                                         <h6>Comments</h6>
                                         @foreach($comment as $c)
@@ -105,9 +99,6 @@
                             <div style="text-align: right;">
                                 <i class="fa fa-comment p-2 comment" style="color: lightgray; font-size: 20px;"></i>
                                 <div class="comment-form d-none">
-                                    <!-- <textarea cols="3" maxlength="300" rows="3" class="form-control"></textarea>
-                                    <button class="text-primary save" data-id="{{$t->id}}">Save</button>
-                                    <button class="text-danger cancel">Cancel</button> -->
                                     <div class="comment-section">
                                         <h6>Comments</h6>
                                         @foreach($comment as $c)
@@ -149,9 +140,6 @@
                             <div style="text-align: right;">
                                 <i class="fa fa-comment p-2 comment" style="color: lightgray; font-size: 20px;"></i>
                                 <div class="comment-form d-none">
-                                    <!-- <textarea cols="3" maxlength="300" rows="3" class="form-control"></textarea>
-                                    <button class="text-primary save" data-id="{{$t->id}}">Save</button>
-                                    <button class="text-danger cancel">Cancel</button> -->
                                     <div class="comment-section">
                                         <h6>Comments</h6>
                                         @foreach($comment as $c)
@@ -195,9 +183,6 @@
                             <div style="text-align: right;">
                                 <i class="fa fa-comment p-2 comment" style="color: lightgray; font-size: 20px;"></i>
                                 <div class="comment-form d-none">
-                                    <!-- <textarea cols="3" maxlength="300" rows="3" class="form-control"></textarea>
-                                    <button class="text-primary save" data-id="{{$t->id}}">Save</button>
-                                    <button class="text-danger cancel">Cancel</button> -->
                                     <div class="comment-section">
                                         <h6>Comments</h6>
                                         @foreach($comment as $c)
@@ -240,9 +225,6 @@
                             <div style="text-align: right;">
                                 <i class="fa fa-comment p-2 comment" style="color: lightgray; font-size: 20px;"></i>
                                 <div class="comment-form d-none">
-                                    <!-- <textarea cols="3" maxlength="300" rows="3" class="form-control"></textarea>
-                                    <button class="text-primary save" data-id="{{$t->id}}">Save</button>
-                                    <button class="text-danger cancel">Cancel</button> -->
                                     <div class="comment-section">
                                         <h6>Comments</h6>
                                         @foreach($comment as $c)

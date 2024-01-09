@@ -19,7 +19,12 @@ class ProjectController extends Controller
     {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-        if($role == 'A') {
+        if($role == 'D') {
+            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
+            $project = project::whereIn('id',$task)->get();
+        } elseif($role == 'P') {
+            $project = project::all();
+        } elseif($role == "A"){
             $project = project::all();
         } elseif($role == "C"){
             $project = project::where('u_id',Auth::user()->id)->get();
@@ -37,8 +42,12 @@ class ProjectController extends Controller
     {
         $role = Auth::user()->role;
         $id = Auth::user()->id;
-
-        if($role == 'A') {
+        if($role == 'D') {
+            $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
+            $project = project::whereIn('id',$task)->get();
+        } elseif($role == 'P') {
+            $project = project::all();
+        } elseif($role == "A"){
             $project = project::all();
         } elseif($role == "C"){
             $project = project::where('u_id',Auth::user()->id)->get();

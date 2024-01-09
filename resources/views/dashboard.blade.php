@@ -1,10 +1,6 @@
 @include('components/header')
 @include('components/sidebar')
 
-//sample text msg
-
-//change commit checking
-
 
 <div class="container-fluid mt-5">
 	<div class="row">
