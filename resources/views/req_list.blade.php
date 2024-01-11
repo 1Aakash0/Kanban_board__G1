@@ -1,6 +1,9 @@
 @include('components/header')
 @include('components/sidebar')
-@php $task_type = ["R" =>"Ready To Start" ,"I"=>"In Progress","D"=>"Development","T"=>"Testing","S"=>"Sign Off","Done"=>"Done"]  @endphp
+@php 
+    $task_type = ["R" =>"Ready To Start" ,"I"=>"In Progress","D"=>"Development","T"=>"Testing","S"=>"Sign Off","Done"=>"Done"];
+    $priority = ["Highest","High","Medium","Low","Lowest"];
+@endphp
 
 	<div class="container">		
 		<div class="card">
@@ -19,11 +22,15 @@
 								<td> {{ ++$key }} </td>
 								<td> {{ $m->task->name }}</td>
 								<td> {{ $m->project->name }}</td>
-								@foreach($task_type as $key => $val)
-									@if($key == $m->status)
-										<td> {{ $val }} </td>
+								<td>
+								@foreach($priority as $val)
+									@if($val == $m->status)
+										{{ $val }}
+									@else
+									
 									@endif
 								@endforeach
+								</td>
 								<td>
 									@if(Auth::user()->role == "A")
 										@if($m->action == "Pending")

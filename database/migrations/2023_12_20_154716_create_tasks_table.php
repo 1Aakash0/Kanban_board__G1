@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration
             $table->string('name',300);
             $table->text('description');
             $table->integer('assignee_id');
-            $table->integer('priority_id')->nullable();
+            $table->string('priority_id',50)->nullable();
             $table->string('status_id',10);
             $table->integer('is_delete')->default(0);
             $table->string('estimation_hours',30)->nullable();

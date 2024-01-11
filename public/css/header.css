@@ -35,23 +35,23 @@ header .elipsis-menu {
   cursor: pointer;
 }
 .add-task-btn {
-  margin-right: 16px;
-  background: #635fc7;
-  color: white;
-  border-radius: 24px;
-  padding: 10px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    margin-right: 16px;
+    background: #03A9F4;
+    color: white;
+    border-radius: 24px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .add-task-btn:hover {
-  background: #A8A4FF;
+  background: #a4f0ff;
 }
 
 .submit-btn {
   margin-right: 16px;
-  background: #8a63da;
+  background: #03A9F4;
   color: white;
   border-radius: 24px;
   padding: 10px 18px;
@@ -61,7 +61,7 @@ header .elipsis-menu {
 }
 
 .submit-btn:hover {
-  background: #bfa7f1;
+  background: #a4f0ff;
 }
 
 .cancel-btn {
@@ -129,11 +129,11 @@ header .elipsis-menu {
   transition: 0.3s;
 }
 
-.dropdown-board:hover {
-  background: rgba(99, 95, 199, 0.1);
-  color: #635fc7;
-  border-radius: 0px 100px 100px 0px;
-}
+    .dropdown-board:hover {
+        background: rgba(107, 193, 232, 0.1);
+        color: #03A9F4;
+        border-radius: 0px 15px 15px 0px;
+    }
 
 .dark .dropdown-board:hover {
 background: white;
@@ -141,9 +141,9 @@ color: #635fc7;
 }
 
 .board-active {
-  background-color: #635fc7;
-  border-radius: 0px 100px 100px 0px;
-  color: white;
+    background-color: #03A9F4;
+    border-radius: 0px 15px 15px 0px;
+    color: white;
 }
 
 .dropdown-board img {

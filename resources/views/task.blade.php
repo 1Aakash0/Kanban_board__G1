@@ -1,7 +1,9 @@
 @include('components/header')
 @include('components/sidebar')
 
-@php $task_type = ["R" =>"Ready To Start" ,"I"=>"In Progress","D"=>"Development","T"=>"Testing","S"=>"Sign Off","Done"=>"Done"]  @endphp
+@php $task_type = ["R" =>"Ready To Start" ,"I"=>"In Progress","D"=>"Development","T"=>"Testing","S"=>"Sign Off","Done"=>"Done"];
+$priority = ["Highest","High","Medium","Low","Lowest"];
+  @endphp
 
 	<div class="container">
 		<div class="card">
@@ -63,6 +65,32 @@
 										@endif
 									@endforeach
 								</select>
+								@error('status')
+					                <span class="text-danger d-block">{{ $message }}</span>
+					            @enderror
+							</div>
+							<div class="col-6">
+								<label>Estimation Hours</label>
+								<input type="number" min="0" value="{{ $task->estimation_hours }}" name="estimation_hr" class="form-control">
+								@error('estimation_hr')
+					                <span class="text-danger d-block">{{ $message }}</span>
+					            @enderror
+							</div>
+							<div class="col-6">
+								<label>Priority</label>
+								<select class="form-control" name="priority">
+									<option>Select Task Priority</option>
+										@foreach($priority as $p) 
+											@if($p == $task->priority_id)
+												<option selected value="{{$p}}"> {{ $p }} </option>
+											@else
+												<option value="{{$p}}"> {{ $p }} </option>
+											@endif
+										@endforeach
+								</select>
+								@error('priority')
+					                <span class="text-danger d-block">{{ $message }}</span>
+					            @enderror
 							</div>
 							<div class="col-12">
 								<label>Task Description</label>
@@ -133,6 +161,28 @@
 									<option value="S">Sign Off</option>
 									<option value="Done">Done</option>
 								</select>
+								@error('status')
+					                <span class="text-danger d-block">{{ $message }}</span>
+					            @enderror
+							</div>
+							<div class="col-6">
+								<label>Estimation Hours</label>
+								<input type="number" min="0" value="0" name="estimation_hr" class="form-control">
+								@error('estimation_hr')
+					                <span class="text-danger d-block">{{ $message }}</span>
+					            @enderror
+							</div>
+							<div class="col-6">
+								<label>Priority</label>
+								<select class="form-control" name="priority">
+									<option>Select Task Priority</option>
+									@foreach($priority as $p) 
+										<option value="{{$p}}"> {{ $p }} </option>
+									@endforeach
+								</select>
+								@error('priority')
+					                <span class="text-danger d-block">{{ $message }}</span>
+					            @enderror
 							</div>
 							<div class="col-12">
 								<label>Task Description</label>

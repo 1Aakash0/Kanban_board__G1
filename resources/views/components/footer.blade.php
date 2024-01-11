@@ -1,9 +1,14 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 	<script type="text/javascript">
 		$(".comment").on('click',function(){
-			$(this).next().toggleClass('d-none');
+			$(this).parents('.row').find('.comment-form').toggleClass('d-none');
+		})
+
+		$(".time").on('click',function(){
+			$(this).parents('.row').find('.time-form').toggleClass('d-none');
 		})
 
 		$(".cancel").on('click',function() {
@@ -51,6 +56,42 @@
 	      			type : "post",
 	                url  : "{{route('add_comment')}}",
 	                data :  {desc:desc,ids,ids},
+	                headers: {
+			          	'X-CSRF-TOKEN': '{{ csrf_token() }}', // Add CSRF token for Laravel
+			        },
+	                success : function(res){
+	                	$(this).parent().toggleClass('d-none');
+	                	if(res.success == true) {
+	                		Swal.fire({
+		                		title: res.message,
+		                		icon: "success" ,
+		                	}).then(() => {
+		                		location.reload()	
+		                	})
+	                	} else {
+	                		Swal.fire({
+		                		title: res.message,
+		                		icon: "warning" ,
+		                	}).then(() => {
+		                		location.reload()	
+		                	})
+	                	}
+	                }
+	            });
+			}
+		})
+
+		$(".save_time").on('click',function() {
+			var time = $(this).prev().val();
+			var ids = $(this).data('id');
+
+			if(time == null || time == ""){
+				alert("Please Enter the time");
+			} else {
+				$.ajax({
+	      			type : "post",
+	                url  : "{{route('add_time')}}",
+	                data :  {time:time,ids,ids},
 	                headers: {
 			          	'X-CSRF-TOKEN': '{{ csrf_token() }}', // Add CSRF token for Laravel
 			        },
@@ -257,6 +298,8 @@
 		$(".delete_task").on("click",function(){
 			$(this).parent().toggleClass('d-none');
 			var id = $(this).data('id');
+
+            console.log(id);
 			swal.fire({
 				title: "Are you sure?",
 				text: "You won't to delete this Task?",

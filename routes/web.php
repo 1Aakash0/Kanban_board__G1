@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('update_task',[taskController::class,'update'])->name('update_task');
     //Add comment
     Route::post('add_comment',[taskController::class,'comment'])->name('add_comment');
+    Route::post('add_time',[taskController::class,'add_time'])->name('add_time');
     Route::post('send_req',[taskController::class,'send_req'])->name('send_req');
     Route::get('board/{id}',[taskController::class,'show'])->name('board');
     Route::get('req_list',[taskController::class,'req_list'])->name('req_list');

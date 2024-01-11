@@ -28,7 +28,7 @@ class TaskController extends Controller
             $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
             $project = project::whereIn('id',$task)->get();
         } elseif($role == 'P') {
-            $project = project::all();
+            $project = project::where('pm_id',Auth::user()->id)->get();
         } elseif($role == "A"){
             $project = project::all();
         } elseif($role == "C"){
@@ -58,9 +58,11 @@ class TaskController extends Controller
         $this->validate($request,[
             'task'=>'required|unique:projects,name|max:255',
             'desc'=>'required|max:255',
-            'p_name'=>'required|notIn:Select Project Manager',
+            'p_name'=>'required|notIn:Select Project Name',
             'developer'=>'required|notIn:Select Developer Name',
             'status'=>'required|notIn:Select Status',
+            'priority'=>'required|notIn:Select Task Priority',
+            'estimation_hr'=>'required',
         ]);
 
         $task = new task();
@@ -69,6 +71,8 @@ class TaskController extends Controller
         $task->project_id = $request->p_name;
         $task->assignee_id = $request->developer;
         $task->status_id = $request->status;
+        $task->priority_id = $request->priority;
+        $task->estimation_hours = $request->estimation_hr;
 
         if($task->save()){
             $request->session()->flash('success','Task Created Successfully');
@@ -93,15 +97,18 @@ class TaskController extends Controller
             $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
             $project = project::whereIn('id',$task)->get();
         } elseif($role == 'P') {
-            $project = project::all();
+            $project = project::where('pm_id',Auth::user()->id)->get();
         } elseif($role == "A"){
             $project = project::all();
         } elseif($role == "C"){
             $project = project::where('u_id',Auth::user()->id)->get();
         }
         $task = task::where('project_id',$project_id)->where('is_delete','0')->get();
+        $comment_count = comment::selectRaw('task_id, count(*) as total')
+                                ->groupBy('task_id')
+                                ->pluck('total','task_id')->all();
         $comment = comment::all();
-        return view('board',compact('task','project','comment'));
+        return view('board',compact('task','project','comment','comment_count'));
     }
 
     /**
@@ -119,7 +126,7 @@ class TaskController extends Controller
             $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
             $project = project::whereIn('id',$task)->get();
         } elseif($role == 'P') {
-            $project = project::all();
+            $project = project::where('pm_id',Auth::user()->id)->get();
         } elseif($role == "A"){
             $project = project::all();
         } elseif($role == "C"){
@@ -139,6 +146,8 @@ class TaskController extends Controller
             'p_name'=>'required|notIn:Select Project Manager',
             'developer'=>'required|notIn:Select Developer Name',
             'status'=>'required|notIn:Select Status',
+            'priority'=>'required|notIn:Select Task Priority',
+            'estimation_hr'=>'required',
         ]);
 
         $task->name = $request->task;
@@ -146,21 +155,24 @@ class TaskController extends Controller
         $task->project_id = $request->p_name;
         $task->assignee_id = $request->developer;
         $task->status_id = $request->status;
+        $task->priority_id = $request->priority;
+        $task->estimation_hours = $request->estimation_hr;
 
         if($task->save()){
             $request->session()->flash('success','Task Updated Successfully');
         } else {
-            $request->session()->flash('errro','Something went wrong');
+            $request->session()->flash('error','Something went wrong');
         }
 
         return redirect()->back();
     }
 
     public function delete_task(Request $request){
+        $id = $request->id;
         if(task::where('id',$id)->update(['is_delete' => '1'])) {
-            $request->session()->flash('success','Task Deleted Successfully');
+             return response()->json(['success' => true, 'message' => 'Task deleted Successfully']);
         } else {
-            $request->session()->flash('errro','Something went wrong');
+             return response()->json(['success' => true, 'message' => 'Something went wrong']);
         }
 
         return redirect()->back();
@@ -238,7 +250,7 @@ class TaskController extends Controller
             $project = project::whereIn('id',$task)->get();
             $log = logs::whereIn('project_id',$task)->get();
         } elseif($role == 'P') {
-            $project = project::all();
+            $project = project::where('pm_id',Auth::user()->id)->get();
             $log = logs::all();
         } elseif($role == "A"){
             $project = project::all();
@@ -277,22 +289,48 @@ class TaskController extends Controller
     public function accept_req(Request $request){
         $req = task_req::where('id',$request->id)->first(); 
         $task = task::where('id',$req->task_id)->first();
-        $pre_status = $task->status_id;  
+        $pre_status = $task->priority_id;  
         $req->action = "Approve";
         if($req->save()) {
-            if(task::where('id',$req->task_id)->update(['status_id'=>$req->status])){
-                $model = new logs();
-                $model->cus_id = $req->cus_id;
-                $model->task_id = $task->id;
-                $model->project_id = $task->project_id;
-                $model->status = $req->status;
-                $model->pre_status = $pre_status;
-                $model->save();
+            if(task::where('id',$req->task_id)->update(['priority_id'=>$req->status])){
+                // $model = new logs();
+                // $model->cus_id = $req->cus_id;
+                // $model->task_id = $task->id;
+                // $model->project_id = $task->project_id;
+                // $model->status = $req->status;
+                // $model->pre_status = $pre_status;
+                // $model->save();
                 return response()->json(['success' => true, 'message' => 'Request Approved Successfully']);
             }else {
                 return response()->json(['success' => false, 'message' => 'Something went wrong']);
             }
 
         }
+    }
+
+    public function add_time(Request $request){
+        $task_type = ["R","I","D","T","S","Done"];
+        $task_id = $request->ids; 
+        $time = $request->time; 
+        $task = task::where('id',$task_id)->first();
+        foreach($task_type as $key => $val) {
+            if($val == $task->status_id) {
+                $status_id = $task_type[$key + 1] ? $task_type[$key + 1] : $task_type[$key];
+            }
+        }
+        $progress = $task->progress_hours + $time;
+        $remaining = $task->estimation_hours - $progress;
+        $task->progress_hours = $progress;
+        $task->remainig_hours = $remaining;
+
+        if($task->estimation_hours == $progress) {
+            $task->status_id = $status_id;
+        }
+        if($task->save()){
+            return response()->json(['success' => true, 'message' => 'Time Added Successfully']);
+        }else {
+            return response()->json(['success' => false, 'message' => 'Something went wrong']);
+        }     
+        dd($request->post());
     }
 }

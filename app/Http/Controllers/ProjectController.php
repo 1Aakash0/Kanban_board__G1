@@ -23,7 +23,7 @@ class ProjectController extends Controller
             $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
             $project = project::whereIn('id',$task)->get();
         } elseif($role == 'P') {
-            $project = project::all();
+            $project = project::where('pm_id',Auth::user()->id)->get();
         } elseif($role == "A"){
             $project = project::all();
         } elseif($role == "C"){
@@ -46,7 +46,7 @@ class ProjectController extends Controller
             $task = task::where('assignee_id',$id)->pluck('project_id')->toArray();
             $project = project::whereIn('id',$task)->get();
         } elseif($role == 'P') {
-            $project = project::all();
+            $project = project::where('pm_id',Auth::user()->id)->get();
         } elseif($role == "A"){
             $project = project::all();
         } elseif($role == "C"){

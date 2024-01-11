@@ -3,11 +3,12 @@
 <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}">
 </head>
 <body>
 <div class="card">
     <div class="card-header">
+    <h1 class="card-title">Kanban Board</h1>
         <h2 class="card-title">Login</h2>
     </div>
     <div class="card-body">   

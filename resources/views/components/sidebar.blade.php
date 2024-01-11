@@ -2,7 +2,18 @@
 	<div class="sidebar  false false">
 		<div class="dropdown-container">
 			<div class="dropdown-modal">
-				{{Auth::user()->role}}
+            @if(Auth::user()->role == "A")
+				<p>Admin</p>
+            @endif
+            @if(Auth::user()->role == "P")
+				<p>Project Manager</p>
+            @endif
+            @if(Auth::user()->role == "D")
+				<p>Developer</p>
+            @endif
+            @if(Auth::user()->role == "C")
+				<p>Customer</p>
+            @endif
 
 				@if(Auth::user()->role == "A")
 					<div class="dropdown">

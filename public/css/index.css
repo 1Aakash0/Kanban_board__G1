@@ -199,7 +199,7 @@ textarea::placeholder {
 
 .task:hover {
   cursor: pointer;
-  color: #635fc7;
+  color: #03A9F4;
 }
 
 .dark .task {
@@ -220,9 +220,8 @@ textarea::placeholder {
 .col-name {
     color: #434f62;
     font-size: 15px;
-    margin-right: 32px;
-    margin-bottom: 24px;
-    background: #bac3e8;
+    margin-bottom: 20px;
+    background: #01a6f15e;
     padding: 10px;
 }
 
@@ -442,10 +441,12 @@ a{
 }
 
 .heading-S {
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 15px;
-  letter-spacing: 2.4px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2.4px;
+    line-height: 15px;
+    padding: 17px;
+    font-family: system-ui;
 }
 
 .text-L {
@@ -610,13 +611,6 @@ input[type=checkbox] {
     font-size: 15px;
     font-weight: 700;
     line-height: 19px
-}
-
-.heading-S {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2.4px;
-    line-height: 15px
 }
 
 .text-L {
@@ -1017,7 +1011,7 @@ input::placeholder,textarea::placeholder {
 }
 
 .board {
-    background-color: #f4f7fd;
+    background-color: #b3e5fc40;
     display: flex;
     gap: 24px;
     overflow-x: scroll;
@@ -1255,11 +1249,6 @@ input::placeholder,textarea::placeholder {
     width: 280px
 }
 
-.task:hover {
-    color: #635fc7;
-    cursor: pointer
-}
-
 .dark .task {
     background: #2b2c37
 }
@@ -1367,7 +1356,7 @@ input::placeholder,textarea::placeholder {
     overflow: scroll;
 }
 
-.task .elipsis-data {
+.column .task .elipsis-data {
     padding-right: 19px;
     padding-left: 10px;
     padding-top: 10px;
